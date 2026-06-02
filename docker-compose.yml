@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  3layer-ocr:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      # Mount your Google credentials file
+      - ./google-credentials.json:/app/google-credentials.json:ro
+    restart: unless-stopped

@@ -1,0 +1,44 @@
+# =============================================================================
+# 3Layer OCR — .gitignore
+# =============================================================================
+
+# Environment variables (NEVER commit your API keys!)
+.env
+*.env
+
+# Google credentials (NEVER commit your service account JSON!)
+google-credentials.json
+*-credentials.json
+*-service-account.json
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temp / upload files
+/tmp/
+uploads/
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# Test output
+coverage/

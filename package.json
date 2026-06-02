@@ -1,0 +1,72 @@
+{
+  "name": "3layer-ocr",
+  "version": "1.0.0",
+  "description": "A production-ready 3-tier fallback OCR pipeline: Google Cloud Vision → OCR.space → Tesseract.js. Extracts text from blurry/distorted images and auto-saves results to Google Sheets.",
+  "main": "src/index.js",
+  "bin": {
+    "3layer-ocr": "bin/3layer-ocr.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node test/test.js",
+    "docker:build": "docker build -t 3layer-ocr .",
+    "docker:run": "docker run -p 3000:3000 3layer-ocr"
+  },
+  "keywords": [
+    "ocr",
+    "google-vision",
+    "ocr-space",
+    "tesseract",
+    "blurry-image-ocr",
+    "image-to-text",
+    "google-sheets",
+    "3-tier-fallback",
+    "open-source",
+    "nodejs",
+    "rest-api",
+    "docker",
+    "vps",
+    "free-ocr-api",
+    "text-extraction",
+    "computer-vision",
+    "receipt-ocr",
+    "document-ocr",
+    "blur-recovery",
+    "sharp"
+  ],
+  "author": "Alok Kumar Rout",
+  "license": "MIT",
+  "homepage": "https://github.com/Alok583/3layer-ocr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alok583/3layer-ocr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Alok583/3layer-ocr/issues"
+  },
+  "dependencies": {
+    "@google-cloud/vision": "^4.3.2",
+    "axios": "^1.7.2",
+    "chalk": "^4.1.2",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
+    "form-data": "^4.0.0",
+    "google-spreadsheet": "^4.1.4",
+    "google-auth-library": "^9.14.1",
+    "morgan": "^1.10.0",
+    "ora": "^5.4.1",
+    "sharp": "^0.33.4",
+    "tesseract.js": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
