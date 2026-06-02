@@ -4,7 +4,7 @@
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2018-brightgreen.svg)](https://nodejs.org)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Alok583/3layer-ocr/pulls)
 
-**3Layer OCR** is an open-source, production-ready OCR (Optical Character Recognition) pipeline that extracts text from images — including **blurry, distorted, or low-quality photos** — using a smart **3-tier fallback system**. Extracted text is automatically synced to **Google Sheets** for easy data management.
+**3Layer OCR** is an open-source, production-ready OCR pipeline that extracts text from images — including **blurry, distorted, or low-quality photos** — using a smart **4-tier fallback system** powered by Google Vision, OCR.space, Nemotron Vision LLM, and Tesseract.js. Extracted text is automatically synced to **Google Sheets** for easy data management.
 
 Deploy it on your **local machine**, **VPS**, or a **Docker container** in minutes. All you need to bring are your API keys.
 
@@ -29,7 +29,14 @@ Deploy it on your **local machine**, **VPS**, or a **Docker container** in minut
                │ FAIL (quota, error, no key)
                ▼
 ┌──────────────────────────────┐
-│  Tier 3: Tesseract.js Local  │  ← 100% free. No internet required.
+│  Tier 3: Nemotron Vision LLM │  ← AI-powered. Free via OpenRouter.
+│  (nvidia/nemotron via        │    Extracts structured JSON receipts.
+│   OpenRouter)                │
+└──────────────┬───────────────┘
+               │ FAIL (no API key or error)
+               ▼
+┌──────────────────────────────┐
+│  Tier 4: Tesseract.js Local  │  ← 100% free. No internet required.
 │  + Sharp 10-stage blur fix   │    Blur recovery pipeline included.
 └──────────────┬───────────────┘
                │
@@ -46,7 +53,8 @@ This design guarantees text extraction even when APIs are down, rate-limited, or
 
 ## ✨ Features
 
-- 🛡️ **3-Tier Fallback** — Google Vision → OCR.space → Tesseract.js (local). Never fails silently.
+- 🛡️ **4-Tier Fallback** — Google Vision → OCR.space → Nemotron Vision LLM → Tesseract.js. Never fails silently.
+- 🤖 **Nemotron AI Vision (Tier 3)** — Nvidia's free Vision LLM via OpenRouter extracts perfectly structured JSON from receipts and documents when standard OCR fails.
 - 📊 **Google Sheets Auto-Logging** — Saves `[Timestamp, ImageName, Text, Provider, Confidence]` per extraction.
 - 🔌 **REST API Server** — Upload images via `POST /extract`. Easy to integrate with any frontend or workflow.
 - 🖥️ **CLI Support** — Run OCR from the terminal without a server.
@@ -86,6 +94,9 @@ GOOGLE_APPLICATION_CREDENTIALS=./google-credentials.json
 
 # OCR.space free API key → https://ocr.space/OCRAPI
 OCR_SPACE_API_KEY=your_key_here
+
+# OpenRouter API Key (for Nemotron Vision LLM Tier 3) → https://openrouter.ai
+OPENROUTER_API_KEY=your_openrouter_api_key_here
 
 # Google Sheet ID from the URL of your spreadsheet
 GOOGLE_SHEET_ID=your_sheet_id_here
@@ -244,4 +255,4 @@ MIT License — see [LICENSE](./LICENSE) for details.
 
 ## 🌟 If this helped you, please star the repo!
 
-> Keywords: OCR, Blurry Image OCR, Free OCR API, Google Vision Node.js, Tesseract.js, Image to Text, Google Sheets API, Open Source OCR, Receipt OCR, Document OCR, 3-tier fallback
+> Keywords: OCR, Blurry Image OCR, Free OCR API, Google Vision Node.js, Tesseract.js, Image to Text, Google Sheets API, Open Source OCR, Receipt OCR, Document OCR, 4-tier fallback, Vision LLM, Nemotron, OpenRouter, AI OCR, Structured JSON Extraction, Receipt Scanner
