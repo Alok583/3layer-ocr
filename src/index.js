@@ -2,13 +2,14 @@
 
 require('dotenv').config();
 const fs   = require('fs');
-const { preprocessImage, savePreprocessed, detectBlurLevel } = require('./preprocessor');
-const { recognize, terminateAll }                             = require('./ocr');
-const { processImageFallback }                                = require('./ocr-fallback');
+const path = require('path');
+const os   = require('os');
+const { preprocessImage, detectBlurLevel } = require('./preprocessor');
+const { processImageFallback }             = require('./ocr-fallback');
 
 /**
- * Extract text from a single image using 3-tier fallback:
- * Google Vision → OCR.space → Tesseract.js (local)
+ * Extract text from a single image using 3-layer OpenRouter fallback:
+ * Gemini Flash → Qwen VL → Mistral
  *
  * @param {string|Buffer} input   - File path or raw image buffer
  * @param {object}        options - Processing options
@@ -24,7 +25,6 @@ async function extract(input, options = {}) {
 
 /**
  * Extract text from multiple images (batch mode).
- * Uses concurrency control to avoid memory exhaustion on VPS.
  *
  * @param {string[]|Buffer[]} inputs     - Array of file paths or buffers
  * @param {object}            options    - Options (same as extract)
@@ -64,15 +64,13 @@ async function detectBlur(input) {
 }
 
 /**
- * Clean up Tesseract workers. Call on process exit.
+ * Cleanup (no-op since we don't use Tesseract workers anymore)
  */
 async function cleanup() {
-  await terminateAll();
+  // Nothing to clean up — OpenRouter is stateless
 }
 
 // Helper: write buffer to a temp file for API calls
-const os = require('os');
-const path = require('path');
 async function _bufferToTempFile(buffer) {
   const tmpPath = path.join(os.tmpdir(), `3layer-ocr-${Date.now()}.png`);
   fs.writeFileSync(tmpPath, buffer);

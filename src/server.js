@@ -50,7 +50,8 @@ app.get('/health', (req, res) => {
 app.get('/version', (req, res) => {
   ok(res, {
     version:     app3layer.version,
-    tiers:       ['Google Vision API', 'OCR.space API', 'Tesseract.js (Local)'],
+    tiers:       ['Nemotron Nano 12B VL (Free)', 'Gemini 2.5 Flash', 'Qwen 2.5 VL 72B'],
+    provider:    'OpenRouter',
     sheets:      !!process.env.GOOGLE_SHEET_ID,
     nodejs:      process.version,
   });
@@ -173,7 +174,7 @@ const server = app.listen(PORT, HOST, () => {
 ╠══════════════════════════════════════════════╣
 ║  Server  : http://${HOST}:${PORT}
 ║  Health  : http://${HOST}:${PORT}/health
-║  Tiers   : Google Vision → OCR.space → Tesseract
+║  Tiers   : Nemotron (Free) → Gemini 2.5 Flash → Qwen 2.5 VL (via OpenRouter)
 ║  Sheets  : ${process.env.GOOGLE_SHEET_ID ? '✅ Configured' : '⚠️  Not configured (set GOOGLE_SHEET_ID)'}
 ╚══════════════════════════════════════════════╝
   `);
